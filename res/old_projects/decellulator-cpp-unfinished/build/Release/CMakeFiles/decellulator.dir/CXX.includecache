@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../include/board.h
+board_cell.h
+../../include/board_cell.h
+
+../../include/board_cell.h
+
+../../include/decellulator.h
+cstdlib
+-
+
+/home/donchocheese/decellulator/src/board.cpp
+cstdint
+-
+board.h
+/home/donchocheese/decellulator/src/board.h
+
+/home/donchocheese/decellulator/src/board_cell.cpp
+board_cell.h
+/home/donchocheese/decellulator/src/board_cell.h
+cstdlib
+-
+
+/home/donchocheese/decellulator/src/decellulator.cpp
+iostream
+-
+board.h
+/home/donchocheese/decellulator/src/board.h
+decellulator.h
+/home/donchocheese/decellulator/src/decellulator.h
+

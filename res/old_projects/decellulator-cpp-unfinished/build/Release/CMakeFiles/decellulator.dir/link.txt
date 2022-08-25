@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdecellulator.a CMakeFiles/decellulator.dir/src/board.cpp.o CMakeFiles/decellulator.dir/src/board_cell.cpp.o CMakeFiles/decellulator.dir/src/decellulator.cpp.o
+/usr/bin/ranlib libdecellulator.a
