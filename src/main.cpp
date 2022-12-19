@@ -27,6 +27,6 @@ void loop() {
   popi_selectCell(x, y);
 
   if(popi_hasUpdated()) {
-    render();
+     0render();
   }
 }
