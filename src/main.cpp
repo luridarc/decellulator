@@ -1,32 +1,68 @@
 #include <Arduino.h>
 
-// #include <popi.h>
-#include "popi.h"
+extern "C" {
+  #include "popi.h"
+}
+
+#define MOVE_SIZE 2
+
+static char move[MOVE_SIZE];
+static unsigned char move_x;
+static unsigned char move_y;
 
 static void render() {
-  for(int i = 0; i < popi_getCellCount(); i++) {
-    // set red with popi_getRed(i);
-    // set green with popi_getGreen(i);
-    // set blue with popi_getBlue(i);
+  Serial.println("====================================");
+  for(int y = 0; y < CELLS_HEIGHT; y++) {
+    for(int x = 0; x < CELLS_WIDTH; x++) {
+      struct CellColor *color = popi_getCellColor(x, y);
+      Serial.print(popi_getCellChar(x, y));
+    }
+    Serial.println();
   }
 }
 
 void setup() {
   popi_newGame();
+
+  Serial.begin(115200); // Any baud rate should work
+
+  render();
+}
+
+static int setMove() {
+  if((move[0] < 48) || (move[0]) > 57) return 0;
+  if((move[1] < 48) || (move[1]) > 57) return 0;
+  move_x = move[0] - '0';
+  move_y = move[1] - '0';
+  return 1;
+}
+
+static int getMove() {
+  if (Serial.available() == 0) return 0;
+
+  int rlen = Serial.readBytesUntil(10, move, MOVE_SIZE);
+  
+  while(Serial.available() > 0)
+    Serial.read();
+
+  if(rlen != 2) return 0;
+
+  setMove();
+
+  return 1;
 }
 
 void loop() {
-  if(popi_gameOver()) {
-    popi_newGame();
-  }
+  
+  if(!getMove()) return;
 
-  // get touched value x and y
-  int x = 0;
-  int y = 0;
-
-  popi_selectCell(x, y);
+  popi_selectCell(move_x, move_y);
 
   if(popi_hasUpdated()) {
-     0render();
+    render();
+  }
+
+  if(popi_gameOver()) {
+    popi_newGame();
   }
 }
